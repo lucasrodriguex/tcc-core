@@ -1,5 +1,6 @@
 server:
   context-path: /tcc
+  port: 9000
 
 # H2
 spring:
@@ -12,3 +13,6 @@ spring:
     username: sa
     password:
     driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update

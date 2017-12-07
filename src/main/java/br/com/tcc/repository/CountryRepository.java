@@ -10,5 +10,6 @@ import java.util.List;
 public interface CountryRepository extends CrudRepository<Country, Long> {
 
     Country findByOfficialName(String officialName);
+    Country findByCommonNameIgnoreCase(String commonName);
     List<Country> findAll();
 }
