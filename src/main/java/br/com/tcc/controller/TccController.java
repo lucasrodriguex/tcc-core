@@ -76,13 +76,11 @@ public class TccController {
         return countryRepository.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:8887")
     @GetMapping("/allCountries")
     public List<Country> getCountries() {
         return countryRepository.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:8887")
     @GetMapping("/country/{name}")
     public Country getCountries(@PathVariable String name) {
         return countryRepository.findByCommonNameIgnoreCase(name);
