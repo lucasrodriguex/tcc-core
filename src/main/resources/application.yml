@@ -1,19 +1,8 @@
 server:
   port: 9000
 
-spring:
-  datasource:
-    driverClassName: org.postgresql.Driver
-    userName: tcc
-    password: tcc
-
-
 # H2
-spring
----
 spring:
-  profiles:
-    active: dev
   h2:
     console:
       enabled: true
@@ -26,6 +15,3 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  profiles:
-    active: dev
----
