@@ -1,5 +1,22 @@
 # H2
+
 spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    driverClassName: org.postgresql.Driver
+    maxActive: 10
+    maxIdle: 5
+    minIdle: 2
+    initialSize: 5
+    removeAbandoned: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+---
+spring:
+  profiles: dev
   h2:
     console:
       enabled: true
