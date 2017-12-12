@@ -10,18 +10,28 @@
 div.tooltip {
     position: absolute;
     text-align: center;
-    width: 80px;
+    width: auto;
     height: auto;
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
+    padding: 4px 10px;
+    font: 16px Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+    background: #FFF;
     border: 0px;
-    border-radius: 4px;
+    border-radius: 2px;
     pointer-events: none;
+    white-space: nowrap;
 }
+
+.legend {
+	font-size: 12px;
+}
+rect {
+	stroke-width: 2;
+}
+
 </style>
 
-<div id = "map">
+<div id = "map" style="background-color:#F2F2F6">
 </div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -31,7 +41,11 @@ div.tooltip {
 var width = window.innerWidth, height = window.innerHeight;
 var projection = d3.geoEquirectangular().scale(width / (2*Math.PI) )
 var path = d3.geoPath().projection(projection);
-var color = d3.schemeCategory10;
+var color = d3.schemeCategory20c;
+
+var scale = d3.scaleLinear();
+scale.domain ([0,7000000000]);
+scale.range([8,100000]);
 
 var svg = d3.select("#map").append("svg")
     .attr("width", width)
@@ -63,10 +77,10 @@ function render(error,mapa) {
 	        d.y = d.cy;
 
 			if(d.population != null) {
-                d.radius = Math.sqrt(d.population.total/Math.PI)/200;
-                //d.radius = Math.sqrt(d.area/Math.PI)/30;
+                d.radius = Math.sqrt(d.population.total/Math.PI)/250;
+                if (d.radius < 3) d.radius = 3;
 			} else {
-				d.radius =  0;
+				d.radius =  3;
 			}
 		});
 
@@ -90,9 +104,9 @@ function render(error,mapa) {
 
 			var data;
 			if(d.population == null) {
-				data = [];
+				data = [100,0,0,0,0,0,0,0,0,0];
 			} else {
-				data = [d.population.from0to9, d.population.from10to19, d.population.from20to29, d.population.from30to39,
+				data = [0,d.population.from0to9, d.population.from10to19, d.population.from20to29, d.population.from30to39,
 				d.population.from40to49, d.population.from50to59, d.population.from60to69, d.population.from70to79, d.population.from80up];
 			}
 
@@ -105,8 +119,7 @@ function render(error,mapa) {
 				.attr('d',arc)
 				.attr("fill",function(d,i){
 					return color[i+1];
-				})
-
+				});
 		});
 		var simulation = d3.forceSimulation()
 				.force('x', d3.forceX().x( function(d) { return d.cx} ))
@@ -133,6 +146,9 @@ function render(error,mapa) {
                 .duration(500)
                 .style("opacity", 0);
         });
+
+
+
 
 }
 

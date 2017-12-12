@@ -18,10 +18,10 @@ d3.json("world-50m.json", function(error, world) {
   svg.insert("path", ".graticule")
       .datum(topojson.feature(world, world.objects.land))
       .attr("class", "land")
-      .attr("d", path).attr('fill-opacity', 0.1).attr("fill", "red");
+      .attr("d", path).attr('fill-opacity', 0.1).attr("fill", "gray");
 
   svg.insert("path", ".graticule")
       .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
       .attr("class", "boundary")
-      .attr("d", path).attr('fill-opacity', 0.1).attr("fill", "red");
+      .attr("d", path).attr('fill-opacity', 0.1).attr("fill", "gray");
 });
