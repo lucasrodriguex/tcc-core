@@ -2,10 +2,9 @@
 <html>
 <head>
     <title>Projeto final - Mapa</title>
-</head>
-<body>
 
-<style type="text/css">
+
+    <style type="text/css">
 
 div.tooltip {
     position: absolute;
@@ -22,6 +21,22 @@ div.tooltip {
     white-space: nowrap;
 }
 
+div h1 {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    height: auto;
+    padding: 4px 10px;
+    font: 36px Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+    background: #FFF;
+    border: 0px;
+    border-radius: 2px;
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: .9;
+}
+
 .legend {
 	font-size: 12px;
 }
@@ -29,133 +44,40 @@ rect {
 	stroke-width: 2;
 }
 
+.boundary {
+	fill: none;
+	stroke: #E9E8E8;
+	stroke-linejoin: round;
+}
+body {
+	margin:0;
+	padding:0;
+	background-color:#F2F2F6;
+}
+
+#legenda {
+	position: absolute;
+	top:0;
+	left:0;
+}
+
 </style>
 
-<div id = "map" style="background-color:#F2F2F6">
+</head>
+<body>
+
+<div id="legenda">
+    <img src="legenda.png">
+</div>
+
+<div id="map">
 </div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 
-<script type="text/javascript">
-var width = window.innerWidth, height = window.innerHeight;
-var projection = d3.geoEquirectangular().scale(width / (2*Math.PI) )
-var path = d3.geoPath().projection(projection);
-var color = d3.schemeCategory20c;
-
-var scale = d3.scaleLinear();
-scale.domain ([0,7000000000]);
-scale.range([8,100000]);
-
-var svg = d3.select("#map").append("svg")
-    .attr("width", width)
-    .attr("height", height + 100)
-    .call(d3.zoom().on("zoom", function () {
-        svg.attr("transform", d3.event.transform)
-}));
-
-
-var div = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-
-
-
-d3.json("https://tcc-lucas-diogo.herokuapp.com/allCountries", function(error, mapa) {
-	render(error,mapa)
-});
-
-
-function render(error,mapa) {
-		if (error) throw error;
-
-		mapa.forEach(function(d) {
-		    d.cx = projection([d.longitude,d.latitude])[0];
-	        d.cy = projection([d.longitude,d.latitude])[1];
-
-	        d.x = d.cx;
-	        d.y = d.cy;
-
-			if(d.population != null) {
-                d.radius = Math.sqrt(d.population.total/Math.PI)/250;
-                if (d.radius < 3) d.radius = 3;
-			} else {
-				d.radius =  3;
-			}
-		});
-
-		var pies = svg.selectAll(".pie")
-			.data(mapa)
-			.enter()
-			.append('g')
-			.attr('class','pie');
-
-
-		pies.each(function(d,i){
-			var pieG = d3.select(this).attr("cx", d.cx).attr("cy", d.cy);
-
-			var arc = d3.arc()
-						.outerRadius(d.radius)
-						.innerRadius(0);
-
-			var pie = d3.pie()
-						.sort(null)
-						.value(function(d) { return d; });
-
-			var data;
-			if(d.population == null) {
-				data = [100,0,0,0,0,0,0,0,0,0];
-			} else {
-				data = [0,d.population.from0to9, d.population.from10to19, d.population.from20to29, d.population.from30to39,
-				d.population.from40to49, d.population.from50to59, d.population.from60to69, d.population.from70to79, d.population.from80up];
-			}
-
-			var g = pieG.selectAll(".arc")
-			.data(pie(data))
-			.enter().append("g")
-			.attr("class", "arc")
-
-			g.append("path")
-				.attr('d',arc)
-				.attr("fill",function(d,i){
-					return color[i+1];
-				});
-		});
-		var simulation = d3.forceSimulation()
-				.force('x', d3.forceX().x( function(d) { return d.cx} ))
-				.force('y', d3.forceY().y( function(d) { return d.cy} ))
-				.force("collide", d3.forceCollide().strength(1).radius(function(d){return d.radius + 2; }).iterations(2))
-				.on("tick", function(d){
-					pies.attr("transform", function(d) {return "translate(" + d.x + ", " + d.y  + ")";});
-
-                    pies.attr("cx", function(d) { return d.cx; }).attr("cy", function(d) { return d.cy; });
-
-				})
-                .nodes(mapa)
-
-        pies.on("mouseover", function(d) {
-            div.transition()
-                .duration(200)
-                .style("opacity", .9);
-            div.html("<span>"+d.commonName+"</span>")
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-        })
-        .on("mouseout", function(d) {
-            div.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
-
-
-
-
-}
-
-
-
-</script>
-<script src="mapa2d.js"></script>
+<script src="js/population.js"></script>
+<script src="js/mapa2d.js"></script>
 
 </body>
 </html>
