@@ -4,7 +4,7 @@ var color = ["black","gray","red","blue","orange","green", "white", "gray", "bla
 var active = d3.select(null);
 
 var scale = d3.scaleLinear();
-scale.domain ([0,700000000]); // Valor mÃ¡ximo Ã© populaÃ§Ã£o total.
+scale.domain ([0,500000000]); // Valor mÃ¡ximo Ã© populaÃ§Ã£o total.
 scale.range([8,100000]);
 
 var transform = d3.zoomTransform(this);
@@ -94,8 +94,30 @@ function render(error,mapa) {
                 if(i == 0) return "";
 
                 var porcentagem = (data[i] / data.eleitorado) * 100;
+                var votos = data[i] / 1000000;
 
-                return parseFloat(porcentagem.toFixed(2)) + "%";
+                return parseFloat(porcentagem.toFixed(2)) + "%" ;
+            });
+
+			slice.append("text")
+			.style("opacity",0)
+			.attr("class", "porcentagem")
+			.attr("fill", "#FFF")
+			.attr("transform", function(d) {
+                var _d = arc.centroid(d);
+                _d[0] *= 1.5;	//multiply by a constant factor
+                _d[1] *= 1.5;	//multiply by a constant factor
+                return "translate(" + _d + ")";
+            }).attr("text-anchor", "middle").text(function(d, i) {
+                if(data.eleitorado == 0) return "";
+                if(typeof data[i] == 'undefined') return "";
+
+                if(i == 0) return "";
+
+                var porcentagem = (data[i] / data.eleitorado) * 100;
+                var votos = data[i] / 1000000;
+
+                return parseFloat(votos.toFixed(2)) + "mi" ;
             });
 		});
 		var simulation = d3.forceSimulation()

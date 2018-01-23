@@ -22,19 +22,11 @@ div.tooltip {
 }
 
 div h1 {
-    position: absolute;
-    text-align: center;
     width: auto;
     height: auto;
-    padding: 4px 10px;
-    font: 36px Helvetica, Arial, sans-serif;
+	margin-left:20px;
+    font: 24px Helvetica, Arial, sans-serif;
     font-weight: lighter;
-    background: #FFF;
-    border: 0px;
-    border-radius: 2px;
-    pointer-events: none;
-    white-space: nowrap;
-    opacity: .9;
 }
 
 .legend {
@@ -63,9 +55,18 @@ body {
 }
 
 #legenda p {
-	margin-left:20px;
+	margin: 0 0 0 20px;
 }
 
+#legenda a {
+	font-weight: bold;
+	color: #F90;
+	text-decoration: none;
+}
+#legenda a:hover {
+	color: #C60;
+	text-decoration: underline;
+}
 .porcentagem {
     font: 2px Helvetica, Arial, sans-serif;
 }
@@ -75,8 +76,9 @@ body {
 <body>
 
 <div id="legenda">
+	<h1>Elei&ccedil;&otilde;es 2014: 1&ordm; Turno</h1>
+    <p><a href="eleicoes2turno.html">Ver 2&ordm; turno</a></p>
     <img src="img/legenda1turno.png">
-    <p><a href="eleicoes2turno.html">Ver 2o turno</a></p>
 </div>
 
 <div id="map">
@@ -91,6 +93,5 @@ var width = window.innerWidth, height = width/2;
 </script>
 <script src="js/eleicoes.js"></script>
 <script src="js/mapa2d-brasil.js"></script>
-
 </body>
 </html>
