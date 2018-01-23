@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Projeto final - Mapa</title>
+    <title>Projeto final - Eleições 2014</title>
 
 
     <style type="text/css">
@@ -21,20 +21,15 @@ div.tooltip {
     white-space: nowrap;
 }
 
-div h1 {
-    position: absolute;
-    text-align: center;
+h1 {
+	position: absolute;
+	top:0;
+	left:0;
     width: auto;
     height: auto;
-    padding: 4px 10px;
-    font: 36px Helvetica, Arial, sans-serif;
+	margin-left:20px;
+    font: 24px Helvetica, Arial, sans-serif;
     font-weight: lighter;
-    background: #FFF;
-    border: 0px;
-    border-radius: 2px;
-    pointer-events: none;
-    white-space: nowrap;
-    opacity: .9;
 }
 
 .legend {
@@ -56,16 +51,25 @@ body {
 }
 
 #legenda {
-    font: 36px Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 	position: absolute;
-	top:0;
+	top:0px;
 	left:0;
 }
 
 #legenda p {
-	margin-left:20px;
+	margin: 0 0 0 20px;
 }
 
+#legenda a {
+	font-weight: bold;
+	color: #F90;
+	text-decoration: none;
+}
+#legenda a:hover {
+	color: #C60;
+	text-decoration: underline;
+}
 .porcentagem {
     font: 2px Helvetica, Arial, sans-serif;
 }
