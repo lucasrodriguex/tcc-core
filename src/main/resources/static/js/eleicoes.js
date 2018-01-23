@@ -1,13 +1,11 @@
-var width = window.innerWidth, height = width/2;
 var projection = d3.geoEquirectangular().scale(width / (2*Math.PI) )
 var path = d3.geoPath().projection(projection);
-//var color = ["black","gray","red","blue","orange","green", "white", "gray", "black"]; // Usado para cores especÃ­ficas.
-var color = d3.schemeCategory20c; // Usando esquema de cores do D3.
+var color = ["black","gray","red","blue","orange","green", "white", "gray", "black"]; // Usado para cores especÃ­ficas.
 var active = d3.select(null);
 
 var scale = d3.scaleLinear();
-scale.domain ([0,7000000000]); // Valor mÃ¡ximo Ã© populaÃ§Ã£o total.
-scale.range([50,Math.pow(width,2)/16]); // Valor mÃ­nimo exibido em dados com valor nulo ou 0. Valor mÃ¡ximo equivale a 1/8 da Ã¡rea total.
+scale.domain ([0,700000000]); // Valor mÃ¡ximo Ã© populaÃ§Ã£o total.
+scale.range([8,100000]);
 
 var transform = d3.zoomTransform(this);
 
@@ -23,9 +21,11 @@ var div = d3.select("body").append("div")
 
 var selected = "";
 
-d3.json("https://tcc-lucas-diogo.herokuapp.com/allCountries", function(error, mapa) {
+d3.json(arquivojson, function(error, mapa) {
 	render(error,mapa)
 });
+
+var zoomscale = 400;
 
 function render(error,mapa) {
 		if (error) throw error;
@@ -37,11 +37,12 @@ function render(error,mapa) {
 	        d.x = d.cx;
 	        d.y = d.cy;
 
-			if(d.population != null) {
-                d.radius = Math.sqrt(scale(d.population.total)/Math.PI); // Calcula escala baseado no valor total.
+			if(d.eleitorado != null) {
+                d.radius = Math.sqrt(scale(d.eleitorado)/Math.PI); // Calcula escala baseado no valor total.
 			} else {
                 d.radius = Math.sqrt(scale(0)/Math.PI); // Exibe valores nulos com tamanho mÃ­nimo na escala.
 			}
+			d.eleitorado = d.eleitorado - d.branco - d.nulo - d.abstencao
 		});
 
 		pies = g.selectAll(".pie")
@@ -59,17 +60,15 @@ function render(error,mapa) {
 						.innerRadius(0);
 
 			var pie = d3.pie()
-						.sort(null)
+						.sort(d3.descending)
 						.value(function(d) { return d; });
 
 			var data;
-			if(d.population == null) {
-				data = [1,0,0,0,0,0,0,0,0,0];
-				data.total = 0
+			if(d.eleitorado == null) {
+				data = [1,0,0,0,0,0,0,0];
 			} else {
-				data = [0,d.population.from0to9, d.population.from10to19, d.population.from20to29, d.population.from30to39,
-				d.population.from40to49, d.population.from50to59, d.population.from60to69, d.population.from70to79, d.population.from80up];
-				data.total = d.population.total;
+				data = [0,d.Dilma, d.Aecio, d.Marina, d.outros];
+				data.eleitorado = d.eleitorado;
 			}
 
 			var slice = pieG.selectAll(".arc").data(pie(data)).enter()
@@ -89,11 +88,12 @@ function render(error,mapa) {
                 return "translate(" + _d + ")";
             }).attr("text-anchor", "middle").text(function(d, i) {
 //                if( (i+1) > 9 ) return "";
-                if(data.total == 0) return "";
+                if(data.eleitorado == 0) return "";
+                if(typeof data[i] == 'undefined') return "";
 
                 if(i == 0) return "";
 
-                var porcentagem = (data[i] / data.total) * 100;
+                var porcentagem = (data[i] / data.eleitorado) * 100;
 
                 return parseFloat(porcentagem.toFixed(2)) + "%";
             });
@@ -101,7 +101,7 @@ function render(error,mapa) {
 		var simulation = d3.forceSimulation()
 				.force('x', d3.forceX().x( function(d) { return d.cx} ))
 				.force('y', d3.forceY().y( function(d) { return d.cy} ))
-				.force("collide", d3.forceCollide().strength(1).radius(function(d){return d.radius + 2; }).iterations(2))
+				.force("collide", d3.forceCollide().strength(1).radius(function(d){return d.radius + 0.5; }).iterations(2))
 				.on("tick", function(d){
 					pies.attr("transform", function(d) {return "translate(" + d.x + ", " + d.y  + ")";});
 
