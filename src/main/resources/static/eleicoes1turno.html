@@ -83,6 +83,22 @@ p.tamanho {
 	font-size: 10px;
 	width: 90px;
 }
+#verturno{
+	padding-top: 10px;
+}
+#voltar{
+	display:none;
+	padding-top: 20px;
+}
+#voltar a, #verturno a {
+	background: #FFF;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+#voltar a:hover, #verturno a:hover {
+	background: #EEE;
+	text-decoration: none;
+}
 
 </style>
 
@@ -91,9 +107,10 @@ p.tamanho {
 
 <h1>Eleições 2014: 1&ordm; Turno</h1>
 <div id="legenda">
-    <p><a href="eleicoes2turno.html">Ver 2&ordm; turno</a></p>
+    <p id="verturno"><a href="eleicoes2turno.html">Ver 2&ordm; turno &rarr;</a></p>
     <img src="img/legenda1turno.png"><br>
     <p class="tamanho">O tamanho dos círculos representa o total de votos.</p>
+    <p id="voltar"><a href="#">&larr; Voltar para o mapa</a></p>
 </div>
 
 <div id="map">
