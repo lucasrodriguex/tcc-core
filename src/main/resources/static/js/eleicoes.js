@@ -152,6 +152,7 @@ function render(error,mapa) {
             	selected = this;
 				d3.select(this.parentNode).selectAll(".pie").style("opacity", .2);
 				d3.select(this.parentNode).selectAll(".pie").selectAll(".arc > .porcentagem").style("opacity", 0);
+				d3.selectAll(".boundary-br").style("stroke-width", .2);
 		        d3.select(this).style("opacity", 1);
 	            zoomscale=0.8*width/(d.radius*4);
 		        zoomfont=parseFloat((2/zoomscale*8).toFixed(2)) + "px";
@@ -164,6 +165,7 @@ function render(error,mapa) {
 	         	selected = "";
 				d3.select(this.parentNode).selectAll(".pie").style("opacity", 1);
 				d3.select(this).selectAll(".arc > .porcentagem").style("opacity", 0);
+				d3.selectAll(".boundary-br").style("stroke-width", 1);
 	            svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
 	        }
         });
