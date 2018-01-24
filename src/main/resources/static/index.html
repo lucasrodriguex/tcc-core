@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Projeto final - Popula&ccedil;&atilde;o mundial</title>
-
-
+    <title>Projeto final - População mundial</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style type="text/css">
 
 div.tooltip {
@@ -75,13 +74,20 @@ body {
     font-weight: bold;
 }
 
+p.tamanho {
+	font-size: 10px;
+	width: 90px;
+}
+
 </style>
 
 </head>
 <body>
 
+<h1>População mundial</h1>
 <div id="legenda">
-    <img src="img/legenda.png">
+    <img src="img/legenda.png" width="110" hspace="5">
+    <p class="tamanho">O tamanho dos círculos representa a população total.</p>
 </div>
 
 <div id="map">
@@ -89,7 +95,6 @@ body {
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
-<h1>Popula&ccedil;&atilde;o mundial</h1>
 <script type="text/javascript">
 var width = window.innerWidth - 100, height = width/2;
 </script>
