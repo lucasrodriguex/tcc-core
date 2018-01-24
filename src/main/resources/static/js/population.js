@@ -1,8 +1,8 @@
 var width = window.innerWidth, height = width/2;
 var projection = d3.geoEquirectangular().scale(width / (2*Math.PI) )
 var path = d3.geoPath().projection(projection);
-//var color = ["black","gray","red","blue","orange","green", "white", "gray", "black"]; // Usado para cores especÃ­ficas.
-var color = d3.schemeCategory20c; // Usando esquema de cores do D3.
+var color = ["black","#979797","#ae81e5","#c6aaeb","#fa4000","#ff8500","#ffab56", "#ffcf99", "#00ab4e", "#4dcc70", "#8de096"]; // Usado para cores especÃ­ficas.
+//var color = d3.schemeCategory20c; // Usando esquema de cores do D3.
 var active = d3.select(null);
 
 var scale = d3.scaleLinear();
