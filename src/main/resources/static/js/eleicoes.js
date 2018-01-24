@@ -98,7 +98,7 @@ function render(error,mapa) {
                 var porcentagem = (data[i] / data.eleitorado) * 100;
                 var votos = data[i] / 1000000;
 
-                return parseFloat(porcentagem.toFixed(2)) + "%" ;
+                return parseFloat(porcentagem.toFixed(1)) + "%" ;
             });
 
 			slice.append("text")

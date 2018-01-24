@@ -95,7 +95,7 @@ function render(error,mapa) {
 
                 var porcentagem = (data[i] / data.total) * 100;
 
-                return parseFloat(porcentagem.toFixed(2)) + "%";
+                return parseFloat(porcentagem.toFixed(1)) + "%";
             });
 		});
 		var simulation = d3.forceSimulation()
