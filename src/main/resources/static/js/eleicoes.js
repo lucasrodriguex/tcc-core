@@ -11,7 +11,7 @@ var transform = d3.zoomTransform(this);
 
 var svg = d3.select("#map").append("svg")
     .attr("width", width)
-    .attr("height", height-50);
+    .attr("height", height-40);
 
 var g = svg.append("g");
 
