@@ -1,3 +1,5 @@
+var arquivojson="json/eleicoes2014turno2.json";
+var width = window.innerWidth-20, height = width/2;
 var projection = d3.geoEquirectangular().scale(width / (2*Math.PI) )
 var path = d3.geoPath().projection(projection);
 var color = ["black","gray","red","blue","orange","green", "white", "gray", "black"]; // Usado para cores especÃ­ficas.
