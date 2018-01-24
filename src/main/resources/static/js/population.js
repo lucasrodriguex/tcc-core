@@ -23,6 +23,16 @@ var div = d3.select("body").append("div")
 
 var selected = "";
 
+d3.select("#voltar").on("click", function(d) {
+	if(selected!="") {
+		d3.selectAll(".pie").style("opacity", 1);
+		d3.selectAll(".arc > .porcentagem").style("opacity", 0);
+        svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+        d3.select("#voltar").style("display", "none");
+        }
+    })
+
+
 d3.json("https://tcc-lucas-diogo.herokuapp.com/allCountries", function(error, mapa) {
 	render(error,mapa)
 });
@@ -136,11 +146,13 @@ function render(error,mapa) {
 	            zoomx=(d.x*(-zoomscale)+ width/2);
 	            zoomy=(d.y*(-zoomscale)+ width/4);
 	            svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(zoomx, zoomy).scale(zoomscale));
+	            d3.select("#voltar").style("display", "block");
 	        } else {
 	         	selected = "";
 				d3.select(this.parentNode).selectAll(".pie").style("opacity", 1);
 				d3.select(this).selectAll(".arc > .porcentagem").style("opacity", 0);
 	            svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+	            d3.select("#voltar").style("display", "none");
 	        }
         });
 }
