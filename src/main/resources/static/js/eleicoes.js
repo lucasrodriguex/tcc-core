@@ -1,4 +1,6 @@
 var arquivojson="json/eleicoes2014turno2.json";
+if (turno==1) arquivojson="json/eleicoes2014turno1.json";
+
 var width = window.innerWidth-20, height = width/2;
 var projection = d3.geoEquirectangular().scale(width / (2*Math.PI) )
 var path = d3.geoPath().projection(projection);
@@ -67,9 +69,10 @@ function render(error,mapa) {
 
 			var data;
 			if(d.eleitorado == null) {
-				data = [1,0,0,0,0,0,0,0];
+				data = [1,0,0,0,0];
 			} else {
-				data = [0,d.Dilma, d.Aecio, d.Marina, d.outros];
+				data = [0,d.Dilma, d.Aecio];
+				if (turno==1) data = [0,d.Dilma, d.Aecio, d.Marina, d.outros];
 				data.eleitorado = d.eleitorado;
 			}
 
