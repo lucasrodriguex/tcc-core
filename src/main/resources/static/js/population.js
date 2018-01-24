@@ -130,7 +130,7 @@ function render(error,mapa) {
 				d3.select(this.parentNode).selectAll(".pie").selectAll(".arc > .porcentagem").style("opacity", 0);
 		        d3.select(this).style("opacity", 1);
 	            zoomscale=0.8*width/(d.radius*4);
-		        zoomfont=parseFloat((2/zoomscale*6).toFixed(2)) + "px";
+		        zoomfont=parseFloat((2/zoomscale*7).toFixed(2)) + "px";
 		        d3.select(this).selectAll(".arc > .porcentagem").style("font-size", zoomfont);
 		        d3.select(this).selectAll(".arc > .porcentagem").style("opacity", 1);
 	            zoomx=(d.x*(-zoomscale)+ width/2);
