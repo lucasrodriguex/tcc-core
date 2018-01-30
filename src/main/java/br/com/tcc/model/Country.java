@@ -19,13 +19,17 @@ public class Country  {
     @JsonIgnore
     private Long id;
 
+    @JsonIgnore
     private String officialName;
     private String commonName;
+
+    @JsonIgnore
     private String sigla;
 
     private Double latitude;
     private Double longitude;
 
+    @JsonIgnore
     private Integer area;
 
     @OneToOne
