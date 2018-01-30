@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Projeto final - Elei&ccedil;&otilde;es 2014</title>
-
-
+    <title>Projeto final - Eleições 2014</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style type="text/css">
 
 div.tooltip {
@@ -80,6 +79,27 @@ body {
   stroke: #bdbdbd;
   stroke-linejoin: round;
 }
+p.tamanho {
+	font-size: 10px;
+	width: 90px;
+}
+#verturno{
+	padding-top: 10px;
+}
+#voltar{
+	display:none;
+	padding-top: 20px;
+}
+#voltar a, #verturno a {
+	background: #FFF;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+#voltar a:hover, #verturno a:hover {
+	background: #EEE;
+	text-decoration: none;
+}
+
 </style>
 
 </head>
@@ -87,8 +107,10 @@ body {
 
 <h1>Elei&ccedil;&otilde;es 2014: 2&ordm; Turno</h1>
 <div id="legenda">
-    <p><a href="eleicoes1turno.html">Ver 1&ordm; turno</a></p>
+    <p id="verturno"><a href="eleicoes1turno.html">Ver 1&ordm; turno &rarr;</a></p>
     <img src="img/legenda2turno.png">
+    <p class="tamanho">O tamanho dos círculos representa o total de votos.</p>
+    <p id="voltar"><a href="#">&larr; Ver mapa</a></p>
 </div>
 
 <div id="map">
@@ -97,6 +119,9 @@ body {
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 
+<script type="text/javascript">
+turno=2;
+</script>
 <script src="js/eleicoes.js"></script>
 <script src="js/mapa2d-brasil.js"></script>
 

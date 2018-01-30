@@ -1,4 +1,6 @@
 var arquivojson="json/eleicoes2014turno2.json";
+if (turno==1) arquivojson="json/eleicoes2014turno1.json";
+
 var width = window.innerWidth-20, height = width/2;
 var projection = d3.geoEquirectangular().scale(width / (2*Math.PI) )
 var path = d3.geoPath().projection(projection);
@@ -22,6 +24,15 @@ var div = d3.select("body").append("div")
     .style("opacity", 0);
 
 var selected = "";
+
+d3.select("#voltar").on("click", function(d) {
+	if(selected!="") {
+		d3.selectAll(".pie").style("opacity", 1);
+		d3.selectAll(".arc > .porcentagem").style("opacity", 0);
+        svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+        d3.select("#voltar").style("display", "none");
+        }
+    })
 
 d3.json(arquivojson, function(error, mapa) {
 	render(error,mapa)
@@ -67,9 +78,10 @@ function render(error,mapa) {
 
 			var data;
 			if(d.eleitorado == null) {
-				data = [1,0,0,0,0,0,0,0];
+				data = [1,0,0,0,0];
 			} else {
-				data = [0,d.Dilma, d.Aecio, d.Marina, d.outros];
+				data = [0,d.Dilma, d.Aecio];
+				if (turno==1) data = [0,d.Dilma, d.Aecio, d.Marina, d.outros];
 				data.eleitorado = d.eleitorado;
 			}
 
@@ -161,12 +173,14 @@ function render(error,mapa) {
 	            zoomx=(d.x*(-zoomscale)+ width/2);
 	            zoomy=(d.y*(-zoomscale)+ width/4);
 	            svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(zoomx, zoomy).scale(zoomscale));
+	            d3.select("#voltar").style("display", "block");
 	        } else {
 	         	selected = "";
 				d3.select(this.parentNode).selectAll(".pie").style("opacity", 1);
 				d3.select(this).selectAll(".arc > .porcentagem").style("opacity", 0);
 				d3.selectAll(".boundary-br").style("stroke-width", 1);
 	            svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+	            d3.select("#voltar").style("display", "none");
 	        }
         });
 }

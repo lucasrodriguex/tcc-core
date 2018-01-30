@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Projeto final - Eleições 2014</title>
-
-
+    <title>Projeto final - População mundial</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style type="text/css">
 
 div.tooltip {
@@ -75,13 +74,36 @@ body {
     font-weight: bold;
 }
 
+p.tamanho {
+	font-size: 10px;
+	width: 90px;
+}
+#voltar{
+	display:none;
+	padding-top: 20px;
+}
+#voltar a {
+	background: #FFF;
+	border-radius: 5px;
+	padding: 5px 10px;
+	color: #09C;
+}
+#voltar a:hover {
+	background: #EEE;
+	text-decoration: none;
+	color: #08D;
+}
+
 </style>
 
 </head>
 <body>
 
+<h1>População mundial</h1>
 <div id="legenda">
-    <img src="img/legenda.png">
+    <img src="img/legendapop.png">
+    <p class="tamanho">O tamanho dos círculos representa a população total.</p>
+    <p id="voltar"><a href="#">&larr; Ver mapa</a></p>
 </div>
 
 <div id="map">
@@ -89,7 +111,6 @@ body {
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
-<h1>Popula&ccedil;&atilde;o mundial</h1>
 <script type="text/javascript">
 var width = window.innerWidth - 100, height = width/2;
 </script>

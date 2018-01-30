@@ -1,8 +1,8 @@
 var width = window.innerWidth, height = width/2;
 var projection = d3.geoEquirectangular().scale(width / (2*Math.PI) )
 var path = d3.geoPath().projection(projection);
-//var color = ["black","gray","red","blue","orange","green", "white", "gray", "black"]; // Usado para cores especÃ­ficas.
-var color = d3.schemeCategory20c; // Usando esquema de cores do D3.
+var color = ["black","#979797","#ae81e5","#c6aaeb","#fa4000","#ff8500","#ffab56", "#ffcf99", "#00ab4e", "#4dcc70", "#8de096"]; // Usado para cores especÃ­ficas.
+//var color = d3.schemeCategory20c; // Usando esquema de cores do D3.
 var active = d3.select(null);
 
 var scale = d3.scaleLinear();
@@ -22,6 +22,16 @@ var div = d3.select("body").append("div")
     .style("opacity", 0);
 
 var selected = "";
+
+d3.select("#voltar").on("click", function(d) {
+	if(selected!="") {
+		d3.selectAll(".pie").style("opacity", 1);
+		d3.selectAll(".arc > .porcentagem").style("opacity", 0);
+        svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+        d3.select("#voltar").style("display", "none");
+        }
+    })
+
 
 d3.json("https://tcc-lucas-diogo.herokuapp.com/allCountries", function(error, mapa) {
 	render(error,mapa)
@@ -136,11 +146,13 @@ function render(error,mapa) {
 	            zoomx=(d.x*(-zoomscale)+ width/2);
 	            zoomy=(d.y*(-zoomscale)+ width/4);
 	            svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(zoomx, zoomy).scale(zoomscale));
+	            d3.select("#voltar").style("display", "block");
 	        } else {
 	         	selected = "";
 				d3.select(this.parentNode).selectAll(".pie").style("opacity", 1);
 				d3.select(this).selectAll(".arc > .porcentagem").style("opacity", 0);
 	            svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+	            d3.select("#voltar").style("display", "none");
 	        }
         });
 }
